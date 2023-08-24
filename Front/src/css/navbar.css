@@ -1,0 +1,261 @@
+@import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+html {
+  /* a cada 1rem será considera 10px */
+  font-size: 62.5%;
+}
+
+html,
+body {
+  height: 100vh;
+  font-family: "Source Sans Pro";
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  background-color: #E6ECF0;
+  overflow-x: hidden;
+  
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+.uls {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.input-nav {
+  height: 40px;
+  padding: 0px;
+  font-size: 30px;
+  margin: 5px 0;
+}
+
+.input-nav::-webkit-input-placeholder {
+  font-family: FontAwesome;
+  font-weight: normal;
+  overflow: visible;
+  vertical-align: top;
+  display: inline-block !important;
+  padding-left: 5px;
+  padding-top: 2px;
+  color: #667DE1;
+}
+
+header {
+  background-color: #93b7f1d5;
+  width: 100vw;
+
+}
+
+.input-nav {
+  width: 73%;
+  height: 40px;
+  outline: 0;
+  border: 0;
+  padding-left: 10px;
+  border-radius: 30px;
+  font-size: 19px;
+  max-width: 2280px;
+
+}
+
+
+header .container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 2280px;
+  transition: all 250ms linear 0s;
+  justify-content: space-between;
+}
+
+.transition-nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1310px;
+  transition: all 250ms linear 0s;
+  justify-content: space-around;
+}
+
+.transition-nav2 {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  transition: all 250ms linear 0s;
+  background-color: rgb(11, 23, 34);
+  justify-content: space-evenly;
+}
+
+header img {
+  width: 150px;
+  margin-left: 00px;
+  padding: 12px 0;
+}
+
+header nav ul {
+  display: flex;
+}
+
+header nav ul li {
+  list-style: none;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 2.5rem;
+  transition: all 250ms linear 0s;
+
+}
+
+.btn-nav1 {
+  width: 237px;
+  background: #667DE1;
+  border-radius: 40px;
+  height: 38px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 22px;
+  color: white;
+  transition: 0.7s;
+
+}
+
+.btn-nav2 {
+  width: 148px;
+  background: #667DE1;
+  border-radius: 40px;
+  height: 38px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 22px;
+  color: white;
+  transition: 0.7s;
+
+}
+
+
+.btn-nav1:hover {
+  background: #47538d;
+  transition: 0.5s;
+}
+
+.btn-nav2:hover {
+
+  background: #47538d;
+  transition: 0.5s;
+}
+
+
+
+
+@media (max-width: 1100px) {
+  .input-nav {
+    display: none;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .one,
+  .two,
+  .three {
+    background-color: #fff;
+    height: 5px;
+    width: 100%;
+    margin: 6px auto;
+
+    transition-duration: 0.3s;
+  }
+
+  .menu-toggle {
+    width: 40px;
+    height: 30px;
+    margin-right: 20px;
+  }
+
+  .transition-nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1310px;
+    transition: all 250ms linear 0s;
+    margin-left: 0px;
+  }
+
+  /* fullscreen */
+  .menu-section.on {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #000000b0;
+
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-section.on nav {
+    display: block;
+  }
+
+
+  .menu-section.on .menu-toggle {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+  }
+
+  .menu-section.on .menu-toggle .one {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .menu-section.on .menu-toggle .two {
+    opacity: 0;
+  }
+
+  .menu-section.on .menu-toggle .three {
+    transform: rotate(-45deg) translate(8px, -9px);
+  }
+
+  .menu-section.on nav ul {
+    text-align: center;
+    display: block;
+  }
+
+  .menu-section.on nav ul a {
+    transition-duration: 0.5s;
+    font-size: 3rem;
+    line-height: 4rem;
+    display: block;
+
+  }
+
+  .transition-nav {
+
+
+    justify-content: space-between;
+    margin-left: 20px;
+  }
+}
