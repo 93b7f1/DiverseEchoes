@@ -16,7 +16,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'biografia',
             'twitter',
             'profile_picture',
-            'email'
+            'email',
+            'username',
         )
 
 
