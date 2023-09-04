@@ -14,7 +14,7 @@ function Navbar() {
     <header>
       <div className="container">
   <div className="transition-nav">
-   <img src={image} alt="Logo" className="logo-img"/>
+  <a href="/"><img src={image} alt="Logo" className="logo-img" /></a> 
 
         <input type="text" className="input-nav" placeholder="&#61442;" />
         </div>
@@ -30,10 +30,10 @@ function Navbar() {
             <ul>
 
               <li>
-                <a href="#" ><button className="btn-nav1">Post your echo  &#9662;</button></a>
+                <a href="/login" ><button className="btn-nav1">Post your echo  &#9662;</button></a>
               </li>
               <li>
-                <a href="#"><button className="btn-nav2">Sign in &#9662;</button></a>
+                <a href="/login"><button className="btn-nav2">Sign in &#9662;</button></a>
               </li>
              
             </ul>

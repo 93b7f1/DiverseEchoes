@@ -9,10 +9,16 @@ import Videos from "../components/Videos";
 import Musics from "../components/Musics";
 import BannerFinal from "../components/BannerFinal";
 import image3 from "../assets/esquerda.png"
-
+import { useEffect } from "react";
 
 function Login() {
-
+  useEffect(() => {
+    document.body.classList.add('login');
+  
+    return () => {
+      document.body.classList.remove('login');
+    };
+  }, []);
   return (
     <div>
       <Navbar />
@@ -35,36 +41,97 @@ function Login() {
               </div>
 
               <div className="void2">
+
                 <div className="email-login">
-
+                  <p className="name-email">Email</p>
                 </div>
+
                 <div className="input-email">
+                  <input type="text" name="emaill" id="emaill" />
 
                 </div>
+
                 <div className="pass-login">
+                  <p className="name-email">Password</p>
 
                 </div>
+
                 <div className="input-pass">
+                  <input type="password" name="senhaa" id="senhaa" />
 
                 </div>
+
                 <div className="btn-login">
+                  <button className="btncad-login" >Login</button>
 
                 </div>
               </div>
-
-              <div className="void3">
-
-              </div>
-
-
             </div>
           </div>
 
-          <div className="hello-home-direita2">
-            <div className="fake-white">
 
+
+          <div className="hello-home-direita2">
+
+            <div className="fake-white">
             </div>
             <div className="content-login">
+              <div className="caixa-login">
+                <p className="login-name2">REGISTER</p>
+              </div>
+
+              <div className="caixa-names-register">
+
+                <div className="email-login2">
+                  <div className="n1">
+                    <p className="name-email2">Username</p>
+
+                  </div>
+                  <div className="n2">
+                    <p className="name-email2">Email</p>
+
+                  </div>
+                </div>
+
+                <div className="input-email">
+                  <div className="n3">
+                    <input type="text" name="emaill" id="emaill2" />
+
+                  </div>
+                  <div className="n4">
+                    <input type="text" name="emaill" id="emaill2" />
+
+                  </div>
+                </div>
+
+                <div className="pass-login">
+                  <div className="n1">
+                    <p className="name-email2">Password</p>
+
+                  </div>
+                  <div className="n2">
+                    <p className="name-email2">Confirm password</p>
+
+                  </div>
+                </div>
+
+                <div className="input-pass">
+                  <div className="n3">
+                    <input type="password" name="emaill" id="emaill2" />
+
+                  </div>
+                  <div className="n4">
+                    <input type="password" name="emaill" id="emaill2" />
+
+                  </div>
+                </div>
+
+                <div className="btn-login">
+                  <button className="btncad-login" >Register</button>
+
+                </div>
+              </div>
+
 
             </div>
           </div>
@@ -72,10 +139,25 @@ function Login() {
 
         <div>
 
-          aaaaa
 
         </div>
-
+        <div className="footer">
+          <div className="footer2">
+            About Us
+          </div>
+          <div className="footer2">
+            Developers
+          </div>
+          <div className="footer2">
+            Terms of Use
+          </div>
+          <div className="footer2">
+            Privacy
+          </div>
+          <div className="footer2">
+            Help
+          </div>
+        </div>
       </div>
 
     </div>
