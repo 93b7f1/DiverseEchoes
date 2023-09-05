@@ -30,7 +30,7 @@ function Navbar() {
             <ul>
 
               <li>
-                <a href="/login" ><button className="btn-nav1">Post your echo  &#9662;</button></a>
+                <a href="/echo" ><button className="btn-nav1">Post your echo  &#9662;</button></a>
               </li>
               <li>
                 <a href="/login"><button className="btn-nav2">Sign in &#9662;</button></a>

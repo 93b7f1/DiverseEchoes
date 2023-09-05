@@ -131,7 +131,7 @@ header nav ul li a {
   line-height: 22px;
   color: white;
   transition: 0.7s;
-
+  margin-top: 10px;
 }
 
 .btn-nav2 {
@@ -145,6 +145,7 @@ header nav ul li a {
   line-height: 22px;
   color: white;
   transition: 0.7s;
+  margin-top: 10px;
 
 }
 
