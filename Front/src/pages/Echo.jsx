@@ -152,7 +152,7 @@ function Echo(props) {
                       <p className="e-direita-echo">EchoName
                         <input type="text" className="input-echo-e" name="spotify" onChange={event => handleFormChange(index, event)} />
                       </p>
-                      <p className="e-direita-echo">Type of Art
+                      <p className="e-direita-echo">Art Type
                         <input type="text" className="input-echo-e" name="soundCloud" onChange={event => handleFormChange(index, event)} />
                       </p>
                       <p className="e-direita-echo">Type
@@ -178,7 +178,7 @@ function Echo(props) {
                         <input type="text" className="input-echo-e" name="appleMusic"  />
                       </p>
                       <div className="faixa-direita-echo"></div>
-                      <div className="titulo3-echo-esquerda" >  <IconWithInfo info="O ID de uma música pode ser localizado depois do track/ de uma URL Spotify" /></div>
+                      <div className="titulo3-echo-esquerda" >  <IconWithInfo info="Art Types means the file extension, and Type the art style or genre" /></div>
                       <div className="save-cont">
                         <button className="btn-direita22" onClick={submit}>Upload Echo</button>
 

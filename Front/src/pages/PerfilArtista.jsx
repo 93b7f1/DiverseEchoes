@@ -174,7 +174,7 @@ function PerfilArtista(props) {
                     
                     <div className="navbar-echo">
                         
-                        <p className="text-navbar-echo">PERFIL - PERSONALIZAR </p>
+                        <p className="text-navbar-echo">PROFILE - CUSTOMIZE  </p>
                     </div>
                     <div className="esquerda-filho-echo">
                         <div className="content-div-esquerda">
@@ -205,7 +205,7 @@ function PerfilArtista(props) {
                             </div>
 
                             <div className="content-div-esquerda-filho2">
-                                <div className="titulo1-echo-esquerda"> Coleção de Músicas </div>
+                                <div className="titulo1-echo-esquerda"> Echoes Collection </div>
                                 <div className="inputs-echo-esquerda333">
                                     {perfil ? (
                                         perfil.map((echo) => (
@@ -216,7 +216,7 @@ function PerfilArtista(props) {
                                             />
                                         ))
                                     ) : (
-                                        <p>Carregando...</p>
+                                        <p>Loading...</p>
                                     )}
                                 </div>
                             </div>
@@ -225,20 +225,21 @@ function PerfilArtista(props) {
                     <div className="direita-filho-echo">
                         <div className="content-div-direita">
                             <div className="content-div-direita-filho">
-                                <div className="titulo1-echo"> Informações do Usuário</div>
+                                <div className="titulo1-echo"> User Data</div>
                                 {inputFields.map((input, index) => {
                                     return (
                                         <div className="inputs-echo-direita" key={index}>
-                                            <p className="p-direita-echo">Nome de usuário
+                                            <p className="p-direita-echo">Username
+                                                <input type="text" className="input-echo-d"  name="username" onChange={event => handleFormChange(index, event)} />
                                                 {/* <input type="text" className="input-echo-d" placeholder={`${dados.username}`} name="username" onChange={event => handleFormChange(index, event)} /> */}
                                             </p>
                                             <div className="particao-perfil">
                                                 <div className="particao-e">
 
-                                                    <p className="p-direita-echo">Twitter
+                                                    <p className="p-direita-echo">Pixiv
                                                         <input type="text" className="input-echo-n" name="twitter" onChange={event => handleFormChange(index, event)} />
                                                     </p>
-                                                    <p className="p-direita-echo">Instagram
+                                                    <p className="p-direita-echo">Twitter
                                                         <input type="text" className="input-echo-n" name="instagram" onChange={event => handleFormChange(index, event)} />
                                                     </p>
                                                 </div>
@@ -247,7 +248,7 @@ function PerfilArtista(props) {
                                                     <p className="p-direita-echo">Spotify
                                                         <input type="text" className="input-echo-n" name="spotify" onChange={event => handleFormChange(index, event)} />
                                                     </p>
-                                                    <p className="p-direita-echo">SoundCloud
+                                                    <p className="p-direita-echo">Soundcloud
                                                         <input type="text" className="input-echo-n" name="soundCloud" onChange={event => handleFormChange(index, event)} />
                                                     </p>
                                                 </div>
@@ -255,7 +256,7 @@ function PerfilArtista(props) {
                                             </div>
 
 
-                                            <p className="p-direita-echo">Gênero músical *
+                                            <p className="p-direita-echo">Youtube Channel
                                                 <input type="text" className="input-echo-d" name="genero" onChange={event => handleFormChange(index, event)} />
                                             </p>
 
@@ -265,7 +266,7 @@ function PerfilArtista(props) {
                                 <div className="faixa-direita-echo"></div>
                             </div>
                             <div className="content-div-direita-filho2">
-                                <div className="titulo1-echo"> Biografia </div>
+                                <div className="titulo1-echo"> Biography </div>
                                 <div className="align-direita2">
                                     <textarea
                                         id="lyrics"
@@ -275,7 +276,7 @@ function PerfilArtista(props) {
                                         value={text}
                                         onChange={handleChange}
                                     ></textarea>
-                                    <button className="btn-direita2" onClick={submit}>Salvar conteúdo</button>
+                                    <button className="btn-direita2" onClick={submit}>Save changes</button>
                                 </div>
                             </div>
                         </div>
