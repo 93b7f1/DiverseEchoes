@@ -38,7 +38,7 @@ function Echo(props) {
   };
 
   useEffect(() => {
-    document.body.classList.add('echo-perfil');
+    document.body.classList.add('echo-perfil3');
   }, []);
 
   const handleChange = (event) => {
@@ -138,7 +138,7 @@ function Echo(props) {
                 {imagem && <img src={imagem} alt="Imagem selecionada" style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "30px" }} />}
               </div>
 
-              <label htmlFor="imagem" className="custom-file-upload2" >
+              <label htmlFor="imagem" className="custom-file-upload22" >
               Insert echo image
               </label>
               <input type="file" name="imagem" id="imagem" className="hidden" onChange={handleImagemChange} />
@@ -180,7 +180,7 @@ function Echo(props) {
                       <div className="faixa-direita-echo"></div>
                       <div className="titulo3-echo-esquerda" >  <IconWithInfo info="O ID de uma música pode ser localizado depois do track/ de uma URL Spotify" /></div>
                       <div className="save-cont">
-                        <button className="btn-direita2" onClick={submit}>Upload Echo</button>
+                        <button className="btn-direita22" onClick={submit}>Upload Echo</button>
 
                       </div>
                     </div>

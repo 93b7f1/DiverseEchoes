@@ -52,12 +52,12 @@ function SidebarContent() {
               </a>
             </li>
             <li>
-              <a className="sidebar-a" href="#">
+              <a className="sidebar-a" href="/profile">
                 <span className="fa fa-user mr-3"></span> Customize profile
               </a>
             </li>
             <li>
-              <a className="sidebar-a" href="#">
+              <a className="sidebar-a" href="/echo">
                 <span className="fa fa-sticky-note mr-3"></span> Post Echo
               </a>
             </li>
