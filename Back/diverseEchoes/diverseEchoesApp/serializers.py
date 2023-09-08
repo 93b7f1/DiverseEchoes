@@ -18,6 +18,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'profile_picture',
             'email',
             'username',
+            'spotify',
+            'soundcloud',
+            'youtube',
         )
 
 
@@ -34,4 +37,5 @@ class EchoSerializer(serializers.ModelSerializer):
             'profile_picture2',
             'pixiv',
             'tipo',
+            'user',
         )
