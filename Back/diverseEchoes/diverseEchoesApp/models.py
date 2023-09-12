@@ -13,11 +13,12 @@ class UserProfile(models.Model):
     twitter = models.CharField(max_length=255, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     email = models.EmailField()
-    username = models.CharField(max_length=255,unique=True)
+    # username = models.CharField(max_length=255,unique=True)
 
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
+        ordering = ['id']
 
     def __str__(self):
         return self.user.username
@@ -36,6 +37,7 @@ class Echo(models.Model):
     class Meta:
         verbose_name = "Echo"
         verbose_name_plural = "Echoes"
+        ordering = ['id']
 
     def __str__(self):
         return self.echolink

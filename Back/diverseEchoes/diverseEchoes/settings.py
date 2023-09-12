@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-#7o15d(l1d(a2mk-hn22!jo)mo)e8h-uetg=+=mmbsnprcb%lo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost","192.168.0.50"]
 
-
+# Token: 3d75cdb98991ac1338dc50e96f110ab452397094
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'diverseEchoesApp',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+
 ]
+
+APPEND_SLASH = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,8 +55,28 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
+]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:5173',  # for localhost (REACT Default)
+    'http://192.168.0.50:5173',  # for network
+
+)
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',  # for localhost (REACT Default)
+    'http://192.168.0.50:5173',  # for network
+
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+
+]
 ROOT_URLCONF = 'diverseEchoes.urls'
 
 TEMPLATES = [
@@ -130,11 +155,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #DRF
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-
-    )
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+     ),
+     'DEFAULT_PERMISSION_CLASSES': (
+         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+     ),
+     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+     'PAGE_SIZE': 5
 }

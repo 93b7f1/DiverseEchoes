@@ -191,7 +191,40 @@ padding-left: 10px;
 background-color: #93b7f1d3;
 
 }
-#emaill2{
+#usernameC{
+  width: 90%;
+  height: calc(3vw * 0.85);
+  border-radius: 10px;
+  outline: none;
+  border: 0;
+  font-size: 1vw;
+  padding-left: 10px;
+  background-color: #E6ECF0;
+  
+}
+#emailC{
+  width: 90%;
+  height: calc(3vw * 0.85);
+  border-radius: 10px;
+  outline: none;
+  border: 0;
+  font-size: 1vw;
+  padding-left: 10px;
+  background-color: #E6ECF0;
+  
+}
+#passC{
+  width: 90%;
+  height: calc(3vw * 0.85);
+  border-radius: 10px;
+  outline: none;
+  border: 0;
+  font-size: 1vw;
+  padding-left: 10px;
+  background-color: #E6ECF0;
+  
+}
+#passCC{
   width: 90%;
   height: calc(3vw * 0.85);
   border-radius: 10px;

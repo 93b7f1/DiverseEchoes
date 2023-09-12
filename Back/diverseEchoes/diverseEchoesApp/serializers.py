@@ -1,27 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Echo, UserProfile
 
-
-class UserProfileSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        extra_kwargs={
-            'email': {'write_only' :True}
-        }
-        model = UserProfile
-        fields=(
-            'id',
-            'user',
-            'pixiv_user',
-            'biografia',
-            'twitter',
-            'profile_picture',
-            'email',
-            'username',
-            'spotify',
-            'soundcloud',
-            'youtube',
-        )
 
 
 class EchoSerializer(serializers.ModelSerializer):
@@ -39,3 +19,39 @@ class EchoSerializer(serializers.ModelSerializer):
             'tipo',
             'user',
         )
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username','password',)
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    echoes = EchoSerializer(
+        many=True,
+        read_only=True
+    )
+
+    class Meta:
+
+
+        model = UserProfile
+        fields=(
+            'id',
+            'user',
+            'pixiv_user',
+            'biografia',
+            'twitter',
+            'profile_picture',
+            'email',
+            'spotify',
+            'soundcloud',
+            'youtube',
+            'echoes',
+        )
+
+
+  # echoesh = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='echo-detail'
+    # )
