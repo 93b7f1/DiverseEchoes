@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os.path
 from pathlib import Path
 
+from azure.storage.blob import BlobServiceClient
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -80,6 +82,7 @@ CORS_ALLOWED_ORIGINS = [
 ROOT_URLCONF = 'diverseEchoes.urls'
 
 TEMPLATES = [
+
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -97,6 +100,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'diverseEchoes.wsgi.application'
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -145,8 +153,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -155,13 +164,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #DRF
 REST_FRAMEWORK = {
-     'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
-     ),
-     'DEFAULT_PERMISSION_CLASSES': (
+
+     'DEFAULT_PERMISSION_CLASSES': [],
          # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-     ),
+
+
      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
      'PAGE_SIZE': 5
 }

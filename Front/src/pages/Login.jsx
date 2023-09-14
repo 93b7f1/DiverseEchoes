@@ -81,6 +81,7 @@ function Login() {
       .then(response => {
         console.log(response)
         sessionStorage.setItem('dados', JSON.stringify(response.data));
+        console.log(response.data)
         navigate('/profile');
         console.log(inputFields[0].login);
         console.log(inputFields[0].passwordLogin);
@@ -100,44 +101,47 @@ function Login() {
     if (validar() != false) {
       e.preventDefault();
 
-      fetch("http://localhost:8000/api/v2/userprofile/create_user/",
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: "POST",
-          body: JSON.stringify({
-            username: usernameC.value,
-            password: passC.value,
-            email: emailC.value,
-          })
+      fetch("http://localhost:8000/api/v2/userprofile/create_user/", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          username: usernameC.value,
+          password: passC.value,
+          email: emailC.value,
         })
-        .then(function (res) {
-          sessionStorage.setItem('dados', JSON.stringify({
-            username: usernameC.value,
-            password: passC.value,
-            email: emailC.value,
-          }));
-          console.log(res.data)
+      })
+      .then(function (res) {
+        if (res.ok) {
+          return res.json(); 
+        } else {
+          throw new Error("Erro na resposta do servidor");
+        }
+      })
+      .then(function (data) {
  
-          if (res.ok) {
-            toast.success("Cadastro realizado com sucesso!");
-            console.log(res.data)
-            setTimeout(() => {
-            navigate("/profile");
-
-            }, 2000);
-
-          } else {
-            toast.error("Erro ao realizar cadastro.");
-
-          }
-        })
-
+        if (data && data.username && data.id) {
+          const userID = data.id;
+          
+          console.log(data);
+      
+          sessionStorage.setItem('dados', JSON.stringify({
+            username: data.username,
+            id: userID,
+          }));
+          
+          toast.success("Cadastro realizado com sucesso!");
+          navigate("/profile")
+        } else {
+          toast.error("Erro ao realizar cadastro.");
+        }
+      })
+      .catch(function (error) {
+        console.error("Erro ao processar a resposta do servidor:", error);
+      });
     }
-
-
   }
 
 

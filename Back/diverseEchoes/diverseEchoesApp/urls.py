@@ -1,4 +1,7 @@
+from django.template.context_processors import static
 from django.urls import path
+
+from diverseEchoes import settings
 from .views import EchoAPIView, UserAPIView, UsersAPIView, EchoesAPIView, EchoViewSet, UserViewSet, EchoViewSetLastFive, \
     UserCreateViewSet, LoginView
 from rest_framework.routers import SimpleRouter

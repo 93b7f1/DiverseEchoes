@@ -11,7 +11,6 @@ class UserProfile(models.Model):
     youtube = models.CharField(max_length=255, blank=True)
     biografia = models.TextField(blank=True, default=' ')
     twitter = models.CharField(max_length=255, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     email = models.EmailField()
     # username = models.CharField(max_length=255,unique=True)
 
@@ -32,7 +31,6 @@ class Echo(models.Model):
     pixiv = models.CharField(max_length=255)
     tipo = models.CharField(max_length=255)
     user = models.ForeignKey(UserProfile, related_name='echoes', on_delete=models.CASCADE)
-    profile_picture2 = models.ImageField(upload_to='profile_pictures2/', blank=True, null=True)
 
     class Meta:
         verbose_name = "Echo"
@@ -41,4 +39,3 @@ class Echo(models.Model):
 
     def __str__(self):
         return self.echolink
-

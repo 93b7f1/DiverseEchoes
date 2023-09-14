@@ -3,10 +3,9 @@ from rest_framework import generics, status
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.views import APIView
-
 from .models import Echo, UserProfile
 from .serializers import EchoSerializer, UserProfileSerializer
-from rest_framework.decorators import action, api_view
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import mixins
 from django.contrib.auth.models import User
@@ -60,7 +59,6 @@ class UserCreateViewSet(viewsets.ModelViewSet):
 
         data = request.data
 
-
         try:
             user = User.objects.create_user(
                 username=data['username'],
@@ -68,16 +66,20 @@ class UserCreateViewSet(viewsets.ModelViewSet):
                 email=data['email']
             )
 
-
-            UserProfile.objects.create(
+            profile = UserProfile.objects.create(
                 user=user,
                 nome=data.get('nome', ''),
-
             )
 
-            return Response({'message': 'Usuário criado com sucesso'}, status=status.HTTP_201_CREATED)
+            response_data = {
+                'username': user.username,
+                'id': profile.id
+            }
+
+            return Response(response_data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -90,10 +92,11 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class EchoViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin,
-                  mixins.UpdateModelMixin, mixins.DestroyModelMixin,viewsets.GenericViewSet):
+class EchoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     queryset = Echo.objects.all()
     serializer_class = EchoSerializer
+
 
 
 class EchoViewSetLastFive(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -119,3 +122,6 @@ class LoginView(APIView):
             return Response({'username':username, 'id':user_profile.id }, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+

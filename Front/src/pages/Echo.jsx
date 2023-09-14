@@ -13,9 +13,9 @@ import axios from "axios";
 function Echo(props) {
   const navigate = useNavigate();
   const validar = () => {
-    const { tituloMusica, tituloAlbum } = inputFields[0];
-    if (tituloMusica === "" || tituloAlbum === "") {
-      toast.error("Nome do álbum/música não inseridos");
+    const { echoname } = inputFields[0];
+    if (echoname === "") {
+      toast.error("Nome do Echo não inserido");
       return false;
     } else {
       return true;
@@ -24,8 +24,7 @@ function Echo(props) {
 
   const [inputFields, setInputFields] = useState([
     {
-      spotify: '', soundCloud: '', amazonMusic: '', otherPlataform1: '', youtube: '', deezer: '', appleMusic: '', otherLink1: ''
-      , tituloMusica: '', tituloAlbum: '', compositor: '', genero: ''
+      echoname: '', typea: '', type: '', pixiv: ''
     }
   ]);
 
@@ -45,7 +44,6 @@ function Echo(props) {
     setText(event.target.value);
   };
 
-  const [text, setText] = useState('');
   const [imagem, setImagem] = useState(null);
 
   const handleImagemChange = (event) => {
@@ -61,11 +59,11 @@ function Echo(props) {
     }
   };
   const dados = JSON.parse(sessionStorage.getItem('dados'));
-
+  console.log(dados)
   // const formRef = useRef();
 
   const api = axios.create({
-    baseURL: '...'
+    baseURL: 'http://localhost:8000/api/v2/'
   });
 
   const submit = async (e) => {
@@ -73,50 +71,42 @@ function Echo(props) {
     toast.success("Cadastro de música em andamento");
 
     if (validar() !== false) {
-      const textWithBreaks = text.replace(/\n\r?/g, '<br />');
 
       const imageFile = document.getElementById("imagem").files[0];
 
-      const novoEcho = {
-        artista: {
-          idUsuario: dados.id,
-        },
-        spotify: inputFields[0].spotify,
-        soundCloud: inputFields[0].soundCloud,
-        amazonMusic: inputFields[0].amazonMusic,
-        otherPlataform1: inputFields[0].otherPlataform1,
-        youtube: inputFields[0].youtube,
-        deezer: inputFields[0].deezer,
-        appleMusic: inputFields[0].appleMusic,
-        otherLink1: inputFields[0].otherLink1,
-        tituloMusica: inputFields[0].tituloMusica,
-        tituloAlbum: inputFields[0].tituloAlbum,
-        compositor: inputFields[0].compositor,
-        genero: inputFields[0].genero,
-        lyrics: textWithBreaks
+      const echo = {
+        echolink: inputFields[0].echoname,
+        url: "...",
+        genero: inputFields[0].typea,
+        tipo: inputFields[0].type,
+        pixiv: inputFields[0].pixiv,
+        visualizacao: 0,
+        user: dados.id
+        
       };
 
-      const formData = new FormData();
-      formData.append("imagem", imageFile);
-      formData.append("novoEcho", JSON.stringify(novoEcho));
-
+      // const formData = new FormData();
+      // formData.append("profile_picture2", imageFile);
+      
+      // console.log(formData)
       try {
-        const response = await api.post("/echo", formData, {
+        const response = await api.post("echo/", echo, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         });
 
         if (response.status === 201) {
           toast.success("Música cadastrada com sucesso!");
           setTimeout(() => {
-            navigate("/home");
+            navigate("/");
           }, 2000);
         } else {
           toast.error("Erro ao realizar cadastro.");
         }
       } catch (error) {
         console.error(error);
+        console.log(formData)
         toast.error("Erro ao realizar cadastro. Verifique os campos e tente novamente.");
       }
     }
@@ -150,13 +140,13 @@ function Echo(props) {
                   return (
                     <div className="esquerdo-inputs-esquerdo" key={index}>
                       <p className="e-direita-echo">EchoName
-                        <input type="text" className="input-echo-e" name="spotify" onChange={event => handleFormChange(index, event)} />
+                        <input type="text" className="input-echo-e" name="echoname" onChange={event => handleFormChange(index, event)} />
                       </p>
                       <p className="e-direita-echo">Art Type
-                        <input type="text" className="input-echo-e" name="soundCloud" onChange={event => handleFormChange(index, event)} />
+                        <input type="text" className="input-echo-e" name="typea" onChange={event => handleFormChange(index, event)} />
                       </p>
                       <p className="e-direita-echo">Type
-                        <input type="text" className="input-echo-e" name="amazonMusic" onChange={event => handleFormChange(index, event)} />
+                        <input type="text" className="input-echo-e" name="type" onChange={event => handleFormChange(index, event)} />
                       </p>
                       <div className="faixa-direita-echo"></div>
                       <p className="e-direita-echo2">......
@@ -169,7 +159,7 @@ function Echo(props) {
                   return (
                     <div className="esquerdo-inputs-direito" key={index}>
                       <p className="e-direita-echo">Pixiv
-                        <input type="text" className="input-echo-e" name="youtube" onChange={event => handleFormChange(index, event)} />
+                        <input type="text" className="input-echo-e" name="pixiv" onChange={event => handleFormChange(index, event)} />
                       </p>
                       <p className="e-direita-echo">......
                         <input type="text" className="input-echo-e" name="deezer"  />

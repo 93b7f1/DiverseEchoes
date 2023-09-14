@@ -14,7 +14,6 @@ class EchoSerializer(serializers.ModelSerializer):
             'url',
             'genero',
             'visualizacao',
-            'profile_picture2',
             'pixiv',
             'tipo',
             'user',
@@ -33,7 +32,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
 
-
         model = UserProfile
         fields=(
             'id',
@@ -41,8 +39,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'pixiv_user',
             'biografia',
             'twitter',
-            'profile_picture',
-            'email',
             'spotify',
             'soundcloud',
             'youtube',
