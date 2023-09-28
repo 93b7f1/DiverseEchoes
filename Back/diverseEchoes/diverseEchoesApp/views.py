@@ -1,14 +1,17 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from .models import Echo, UserProfile
-from .serializers import EchoSerializer, UserProfileSerializer
+from .models import Echo, Comment, UserProfile
+from .serializers import EchoSerializer, ComentarioSerializer, UserProfileSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import mixins
 from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
 
 """
 API V1
@@ -19,15 +22,15 @@ class EchoesAPIView(generics.ListCreateAPIView):
 
 
     def get_queryset(self):
-        if self.kwargs.get('user_pk'):
-            return self.queryset.filter(user_id = self.kwargs.get('user_pk'))
-        return  self.queryset.all()
+        if self.kwargs.get('comment_pk'):
+            return self.queryset.filter(comment_pk = self.kwargs.get('comment_pk'))
+        return self.queryset.all()
 
 
 
-class UsersAPIView(generics.ListCreateAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+class CommentsAPIView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = ComentarioSerializer
 
 
 
@@ -36,54 +39,21 @@ class EchoAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EchoSerializer
 
     def get_object(self):
-        if self.kwargs.get('user_pk'):
+        if self.kwargs.get('comment_pk'):
             return get_object_or_404(self.get_queryset(),
-                                     user_id=self.kwargs.get('user_pk'),
+                                     comment_id=self.kwargs.get('comment_pk'),
                                      pk=self.kwargs.get('echo_pk'))
         return get_object_or_404(self.get_queryset(),pk=self.kwargs.get('echo_pk'))
 
-class UserAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+
+
 
 """
 API V2
 """
-
-class UserCreateViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
-
-    @action(detail=False, methods=['post'])
-    def create_user(self, request):
-
-        data = request.data
-
-        try:
-            user = User.objects.create_user(
-                username=data['username'],
-                password=data['password'],
-                email=data['email']
-            )
-
-            profile = UserProfile.objects.create(
-                user=user,
-                nome=data.get('nome', ''),
-            )
-
-            response_data = {
-                'username': user.username,
-                'id': profile.id
-            }
-
-            return Response(response_data, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = ComentarioSerializer
 
     @action(detail=True,methods=['get'])
     def echoes(self,request,pk=None):
@@ -99,6 +69,12 @@ class EchoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
 
 
 
+class UserProfileViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+
 class EchoViewSetLastFive(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Echo.objects.all()
     serializer_class = EchoSerializer
@@ -109,19 +85,11 @@ class EchoViewSetLastFive(mixins.ListModelMixin, viewsets.GenericViewSet):
         serializer = self.get_serializer(last_5_echoes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class LoginView(APIView):
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
 
-        user_profile = UserProfile.objects.filter(user__username=username).first()
-        user = authenticate(request, username=user_profile.user.username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return Response({'username':username, 'id':user_profile.id }, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
-
+class EchoCommentsViewSet(viewsets.ModelViewSet):
+    serializer_class = ComentarioSerializer
+    def get_queryset(self):
+        echo_id = self.kwargs.get('echo_id')
+        echo = Echo.objects.get(pk=echo_id)
+        comments = Comment.objects.filter(echo=echo)[:3]
+        return comments

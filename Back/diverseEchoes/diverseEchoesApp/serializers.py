@@ -1,14 +1,24 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Echo, UserProfile
+from .models import Echo, Comment, UserProfile
 
+
+class ComentarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = (
+            'comentario',
+            'avaliacao',
+            'data',
+            'echo',
+        )
 
 
 class EchoSerializer(serializers.ModelSerializer):
+    comments = ComentarioSerializer(many=True, read_only=True)
 
     class Meta:
         model = Echo
-        fields=(
+        fields = (
             'id',
             'echolink',
             'url',
@@ -16,27 +26,23 @@ class EchoSerializer(serializers.ModelSerializer):
             'visualizacao',
             'pixiv',
             'tipo',
+            'comments',
             'user',
         )
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username','password',)
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+
     echoes = EchoSerializer(
         many=True,
         read_only=True
     )
 
     class Meta:
-
         model = UserProfile
         fields=(
             'id',
-            'user',
-            'pixiv_user',
+            'username',
+            'pixivuser',
             'biografia',
             'twitter',
             'spotify',
@@ -44,10 +50,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'youtube',
             'echoes',
         )
-
-
-  # echoesh = serializers.HyperlinkedRelatedField(
-    #     many=True,
-    #     read_only=True,
-    #     view_name='echo-detail'
-    # )

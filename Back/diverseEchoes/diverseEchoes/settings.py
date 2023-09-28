@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os.path
 from pathlib import Path
+import rest_authtoken
 
-from azure.storage.blob import BlobServiceClient
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-
+    'rest_authtoken',
 ]
 
 APPEND_SLASH = False
@@ -151,16 +151,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
-MEDIA_URL = '/media/'
+# STATIC_URL = 'static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+#
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+# MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 #DRF
 REST_FRAMEWORK = {
@@ -168,13 +172,11 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ),
 
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+    ),
 
-     'DEFAULT_PERMISSION_CLASSES': [],
-         # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-
+     'DEFAULT_PERMISSION_CLASSES': (
+     ),
 
      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
      'PAGE_SIZE': 5

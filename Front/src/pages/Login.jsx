@@ -101,7 +101,7 @@ function Login() {
     if (validar() != false) {
       e.preventDefault();
 
-      fetch("http://localhost:8000/api/v2/userprofile/create_user/", {
+      fetch("http://localhost:8000/api/v1/register/", {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -122,8 +122,8 @@ function Login() {
       })
       .then(function (data) {
  
-        if (data && data.username && data.id) {
-          const userID = data.id;
+        if (data && data.username && data.user_id) {
+          const userID = data.user_id;
           
           console.log(data);
       
