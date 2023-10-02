@@ -39,7 +39,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields=(
+        fields = (
             'id',
             'username',
             'pixivuser',
@@ -48,5 +48,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'spotify',
             'soundcloud',
             'youtube',
+            'password',
+            'email',
             'echoes',
         )

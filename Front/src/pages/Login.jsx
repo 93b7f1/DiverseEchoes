@@ -21,8 +21,8 @@ function Login() {
     } else if (emailC.value.indexOf("@") == -1 || emailC.value.indexOf(".com") == -1 || emailC.value.indexOf("@") > emailC.value.indexOf(".com")) {
       toast.error("E-mail inválido! Verifique e tente novamente.");
       return false;
-    } else if (passC.value.length < 8) {
-      toast.error("A senha deve conter no mínimo 8 caracteres!");
+    } else if (passC.value.length < 5) {
+      toast.error("A senha deve conter no mínimo 5 caracteres!");
       return false;
     } else if (passC.value != passCC.value) {
       toast.error("As senhas devem ser iguais");
@@ -67,7 +67,7 @@ function Login() {
   }, []);
 
   const api = axios.create({
-    baseURL: 'http://localhost:8000/api/v1/'
+    baseURL: 'http://localhost:8000/api/v2/'
   });
 
   const submit = (e) => {
@@ -101,16 +101,15 @@ function Login() {
     if (validar() != false) {
       e.preventDefault();
 
-      fetch("http://localhost:8000/api/v1/register/", {
+      fetch("http://localhost:8000/api/v2/user/", {
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         method: "POST",
         body: JSON.stringify({
           username: usernameC.value,
-          password: passC.value,
           email: emailC.value,
+          password: passC.value
         })
       })
       .then(function (res) {
@@ -122,8 +121,8 @@ function Login() {
       })
       .then(function (data) {
  
-        if (data && data.username && data.user_id) {
-          const userID = data.user_id;
+        if (data && data.username && data.id) {
+          const userID = data.id;
           
           console.log(data);
       

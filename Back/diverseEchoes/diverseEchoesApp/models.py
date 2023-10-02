@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.hashers import make_password
+import hashlib
 class UserProfile(models.Model):
     username = models.CharField(max_length=255)
     pixivuser = models.CharField(max_length=255, blank=True)
@@ -9,6 +10,12 @@ class UserProfile(models.Model):
     biografia = models.TextField(blank=True, default=' ')
     twitter = models.CharField(max_length=255, blank=True)
     email = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+
+    def save(self, *args, **kwargs):
+        if self._state.adding or 'password' in self.get_dirty_fields():
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "User"

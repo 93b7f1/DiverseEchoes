@@ -1,17 +1,16 @@
-from django.template.context_processors import static
 from django.urls import path
 
-from diverseEchoes import settings
-from .views import (EchoAPIView, CommentsAPIView, EchoesAPIView, EchoViewSet, CommentViewSet, EchoViewSetLastFive, EchoCommentsViewSet,UserProfileViewSet)
+from .views import (EchoAPIView, CommentsAPIView, EchoesAPIView, EchoViewSet, CommentViewSet, EchoViewSetLastFive, EchoCommentsViewSet
+,UserProfileViewSet, CommentViewSetM,CustomLoginView)
 
 from rest_framework.routers import SimpleRouter
-from rest_framework.authtoken.views import obtain_auth_token
 # Endpoints na V2
 router = SimpleRouter()
 router.register('echo', EchoViewSet)
 router.register('comment', CommentViewSet)
 router.register('echo-last', EchoViewSetLastFive)
 router.register('user', UserProfileViewSet)
+router.register('commentM', CommentViewSetM)
 
 
 urlpatterns = [
@@ -26,6 +25,8 @@ urlpatterns = [
 
     # Lista todos os comentarios de todos os echoes na v1
     path('comments/', CommentsAPIView.as_view(), name='comments'),
+
+    path('login/', CustomLoginView.as_view(), name='comments'),
 
 
 ]

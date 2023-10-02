@@ -1,5 +1,3 @@
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.hashers import make_password
 from rest_framework import generics, status
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets
@@ -9,10 +7,10 @@ from .serializers import EchoSerializer, ComentarioSerializer, UserProfileSerial
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import mixins
-from django.contrib.auth.models import User
-from rest_framework.permissions import AllowAny
-from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import check_password
 
+from django.http import JsonResponse
+from .models import UserProfile
 """
 API V1
 """
@@ -48,6 +46,23 @@ class EchoAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+
+class CustomLoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        try:
+            user_profile = UserProfile.objects.get(username=username)
+
+            if check_password(password, user_profile.password):
+                return JsonResponse({'message': 'Login bem-sucedido'})
+            else:
+                return JsonResponse({'error': 'Credenciais inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+        except UserProfile.DoesNotExist:
+            return JsonResponse({'error': 'Usuário não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+
 """
 API V2
 """
@@ -67,6 +82,10 @@ class EchoViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
     queryset = Echo.objects.all()
     serializer_class = EchoSerializer
 
+class CommentViewSetM(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = ComentarioSerializer
 
 
 class UserProfileViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
