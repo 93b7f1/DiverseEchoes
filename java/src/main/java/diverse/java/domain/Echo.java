@@ -1,6 +1,7 @@
 package diverse.java.domain;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 
 @Entity
 public class Echo {
