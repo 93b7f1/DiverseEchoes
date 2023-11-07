@@ -16,7 +16,10 @@ public class EchoService {
     }
 
     public List<Echo> echoList(){
-        return echoRepository.findAllByOrderByIdEchoDesc();
+        return echoRepository.findAll();
     }
 
+    public Echo createEcho(Echo echo){
+        return echoRepository.save(echo);
+    }
 }
