@@ -42,7 +42,10 @@ public class UserService {
         return userRepository.save(user);
 
     }
+    public User editarUsuario(User usuario) {
 
+        return userRepository.save(usuario);
+    }
     public Optional<User> userById(Integer userId){
         return userRepository.findByIdUser(userId);
     }
