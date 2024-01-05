@@ -54,7 +54,6 @@ public class Echo {
     @Column(name = "spotifyId")
     private String spotifyId;
 
-
     @Column(name = "echoImage")
     private String echoImage;
 
