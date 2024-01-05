@@ -1,4 +1,7 @@
 {
+    "user":{
+        "idUser": 2
+    },
     "urlOptional": "urlOptional1",
     "echoName":"echoName",
     "genre":"genre1",

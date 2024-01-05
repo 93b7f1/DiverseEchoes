@@ -67,16 +67,16 @@ function Login() {
   }, []);
 
   const api = axios.create({
-    baseURL: 'http://localhost:8000/api/v2/'
+    baseURL: 'http://localhost:8080/users'
   });
 
   const submit = (e) => {
     e.preventDefault();
     toast.success("Autenticando...");
 
-    api.post('login/', {
-      username: inputFields[0].login,
-      password: inputFields[0].passwordLogin
+    api.post('/login', {
+      email: emaill.value,
+      password: senhaa.value
     })
       .then(response => {
         console.log(response)
@@ -101,7 +101,7 @@ function Login() {
     if (validar() != false) {
       e.preventDefault();
 
-      fetch("http://localhost:8000/api/v2/user/", {
+      fetch("http://localhost:8080/users/create-user", {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -114,28 +114,26 @@ function Login() {
       })
       .then(function (res) {
         if (res.ok) {
-          return res.json(); 
+          navigate("/profile") 
+          return res.json();
         } else {
           throw new Error("Erro na resposta do servidor");
         }
       })
       .then(function (data) {
  
-        if (data && data.username && data.id) {
-          const userID = data.id;
+        // if (data && data.username && data.idUser) {
+        //   const userID = data.idUser;
           
           console.log(data);
       
           sessionStorage.setItem('dados', JSON.stringify({
             username: data.username,
-            id: userID,
+            id: data.idUser,
           }));
           
-          toast.success("Cadastro realizado com sucesso!");
-          navigate("/profile")
-        } else {
-          toast.error("Erro ao realizar cadastro.");
-        }
+      
+        
       })
       .catch(function (error) {
         console.error("Erro ao processar a resposta do servidor:", error);

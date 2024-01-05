@@ -6,7 +6,7 @@ body{
 }
 
 .component-home{
-    height: calc(21vw * 0.85);
+    height: calc(19vw * 0.85);
     width: 100%;
     background-color: rgb(255, 255, 255);
     display: flex;
@@ -26,6 +26,7 @@ body{
 }
 .art-name{
   margin-left: 10px;
+  margin-top: -8px;
 }
 .titulo-component-home2{
   height: 10%;

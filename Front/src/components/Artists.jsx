@@ -10,11 +10,21 @@ function Artists() {
         <p className="art-name">Artists</p>
       </div>
       <div className="component-content-home">
-        <div className="teste-comp"></div>
-        <div className="teste-comp"></div>
-        <div className="teste-comp"></div>
-        <div className="teste-comp"></div>
-        <div className="teste-comp"></div>
+        <div className="teste-comp">
+
+        </div>
+        <div className="teste-comp">
+
+        </div>
+        <div className="teste-comp">
+
+        </div>
+        <div className="teste-comp">
+
+        </div>
+        <div className="teste-comp">
+          
+        </div>
       </div>
       <div></div>
     </div>
