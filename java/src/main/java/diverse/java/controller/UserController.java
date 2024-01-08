@@ -51,7 +51,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/{idUser}")
+    @GetMapping("/find/{idUser}")
     public ResponseEntity<Optional<User>> findUserById(@PathVariable Integer idUser){
         return ResponseEntity.status(200).body(userService.userById(idUser));
 
@@ -150,7 +150,7 @@ public class UserController {
             }
 
 
-            return ResponseEntity.status(201).body(userService.editarUsuario(usuarioAtualizado));
+            return ResponseEntity.status(200).body(userService.editarUsuario(usuarioAtualizado));
         } catch (IOException e) {
             e.printStackTrace();
         }

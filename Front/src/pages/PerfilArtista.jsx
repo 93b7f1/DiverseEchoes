@@ -101,7 +101,7 @@ function PerfilArtista(props) {
 
     
     const api = axios.create({
-        baseURL: '...'
+        baseURL: 'http://localhost:8080/users'
     });
 
     const submit = async (e) => {
@@ -127,7 +127,7 @@ function PerfilArtista(props) {
         formData.append("usuario", JSON.stringify(usuario));
 
         try {
-            const response = await api.patch("/usuarios", formData, {
+            const response = await api.patch("/users", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -160,7 +160,22 @@ function PerfilArtista(props) {
         }
 
     };
-    const url = "..."
+    useEffect(() => {
+        const fetchLyrics = async () => {
+            try {
+                const response = await api.get(`/find/${dados.id}`);
+
+                setImagemExist(response.data.userImage)
+                setInfos(response.data)
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchLyrics();
+    }, [dados.id]);
+    
+    const url = 'http://localhost:8000/'
     return (
         <React.Fragment>
             <Helmet>

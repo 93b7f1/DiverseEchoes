@@ -83,14 +83,14 @@ function Login() {
         sessionStorage.setItem('dados', JSON.stringify(response.data));
         console.log(response.data)
         navigate('/profile');
-        console.log(inputFields[0].login);
-        console.log(inputFields[0].passwordLogin);
+        // console.log(inputFields[0].login);
+        // console.log(inputFields[0].passwordLogin);
         toast.success('Login bem sucedido!');
       })
       .catch(error => {
         console.error(error);
-        console.log(inputFields[0].login);
-        console.log(inputFields[0].passwordLogin);
+        // console.log(inputFields[0].login);
+        // console.log(inputFields[0].passwordLogin);
         toast.error('Erro ao fazer login. Verifique suas credenciais e tente novamente.');
       });
   };
