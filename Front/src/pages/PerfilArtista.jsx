@@ -112,14 +112,14 @@ function PerfilArtista(props) {
         const imageFile = document.getElementById("imagem").files[0];
 
         const usuario = {
-            idUsuario: dados.id,
+            idUser: dados.id,
             spotify: inputFields[0].spotify,
-            soundcloud: inputFields[0].soundCloud,
+            soundCloud: inputFields[0].soundCloud,
             twitter: inputFields[0].twitter,
             username: inputFields[0].username,
-            instagram: inputFields[0].instagram,
-            genero: inputFields[0].genero,
-            biografia: textWithBreaks
+            twitter: inputFields[0].instagram,
+            youtube: inputFields[0].genero,
+            biography: textWithBreaks
         };
 
         const formData = new FormData();
@@ -127,7 +127,7 @@ function PerfilArtista(props) {
         formData.append("usuario", JSON.stringify(usuario));
 
         try {
-            const response = await api.patch("/users", formData, {
+            const response = await api.patch("", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -135,7 +135,7 @@ function PerfilArtista(props) {
             if (response.status === 409) {
                 toast.error("Username em uso!");
             }
-            else if (response.status === 201) {
+            else if (response.status === 200) {
                 toast.success("Perfil atualizado com sucesso!");
                 setTimeout(() => {
                     const updateSessionStorageValue = (key, field, updatedValue) => {
@@ -245,25 +245,25 @@ function PerfilArtista(props) {
                                     return (
                                         <div className="inputs-echo-direita" key={index}>
                                             <p className="p-direita-echo">Username
-                                                <input type="text" className="input-echo-d"  name="username" onChange={event => handleFormChange(index, event)} />
+                                                <input type="text" className="input-echo-d"placeholder={`${dados.username}`}  name="username" onChange={event => handleFormChange(index, event)} />
                                                 {/* <input type="text" className="input-echo-d" placeholder={`${dados.username}`} name="username" onChange={event => handleFormChange(index, event)} /> */}
                                             </p>
                                             <div className="particao-perfil">
                                                 <div className="particao-e">
 
-                                                    <p className="p-direita-echo">Pixiv
-                                                        <input type="text" className="input-echo-n" name="twitter" onChange={event => handleFormChange(index, event)} />
+                                                    <p className="p-direita-echo">Pixivㅤㅤㅤ
+                                                        <input type="text" className="input-echo-n" name="twitter"  onChange={event => handleFormChange(index, event)} />
                                                     </p>
-                                                    <p className="p-direita-echo">Twitter
+                                                    <p className="p-direita-echo">Twitterㅤㅤ
                                                         <input type="text" className="input-echo-n" name="instagram" onChange={event => handleFormChange(index, event)} />
                                                     </p>
                                                 </div>
 
                                                 <div className="particao-d  ">
-                                                    <p className="p-direita-echo">Spotify
+                                                    <p className="p-direita-echo">Spotifyㅤㅤ
                                                         <input type="text" className="input-echo-n" name="spotify" onChange={event => handleFormChange(index, event)} />
                                                     </p>
-                                                    <p className="p-direita-echo">Soundcloud
+                                                    <p className="p-direita-echo">Soundcloudㅤ
                                                         <input type="text" className="input-echo-n" name="soundCloud" onChange={event => handleFormChange(index, event)} />
                                                     </p>
                                                 </div>

@@ -49,7 +49,7 @@ body.dark-mode{
 .direita-filho-echo {
     width: 520px;
     height: 975px;
-    margin-top: 30px;
+    margin-top: 100px;
 
     justify-content: center;
 
@@ -75,23 +75,25 @@ body.dark-mode{
     color: #ffffff;
     margin-top: 20px;
     padding-left: 30px;
-   
+    margin: auto;
 }
 
 .esquerda-filho-echo {
     width: 520px;
     height: 975px;
-    margin-top: 30px;
+    margin-top: 100px;
     justify-content: center;
 
 }
 
 .navbar-echo {
-    width: 100%;
+    width: 90%;
     height: 70px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    position: fixed;
+    margin: auto;
 }
 
 .content-div-direita-filho {
@@ -265,7 +267,7 @@ body.dark-mode{
 }
 
 .input-echo-d {
-    width: 90%;
+    width: 92%;
     height: 40px;
     border-radius: 10px;
     outline: none;
@@ -275,6 +277,7 @@ body.dark-mode{
     background-color: #F0F3F5;
     margin-top: 10px;
     padding-left: 10px;
+    margin-left: 5px;
 }
 .particao-e{
     display: flex;
@@ -285,11 +288,11 @@ body.dark-mode{
 .particao-d{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .particao-perfil{
-    width: 420px;
+    width: 440px;
     height: 220px;
     display: flex;
     flex-direction: column;
@@ -348,7 +351,7 @@ body.dark-mode{
     margin-top: 40px;
     font-size: 18px;
     color: black;
-
+    
 }
 .e-direita-echo {
     margin-top: 40px;

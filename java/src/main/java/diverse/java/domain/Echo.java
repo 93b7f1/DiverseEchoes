@@ -30,6 +30,8 @@ public class Echo {
     @Column(name = "lyrics", length = 3000)
     private String lyrics;
 
+    @Column(name = "infos", length = 3000)
+    private String infos;
     @Column(name = "spotify")
     private String spotify;
 
@@ -62,6 +64,15 @@ public class Echo {
 
     @Column(name = "redirect")
     private Integer redirect;
+
+    public String getInfos() {
+        return infos;
+    }
+
+    public void setInfos(String infos) {
+        this.infos = infos;
+    }
+
 
     public Integer getIdEcho() {
         return idEcho;

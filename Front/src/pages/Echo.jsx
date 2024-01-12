@@ -119,7 +119,7 @@ function Echo(props) {
 
       <div className="direita-echo">
         <div className="navbar-echo">
-          <p className="text-navbar-echo">ECHO SYSTEM - UPLOAD ARTWORK</p>
+          <p className="text-navbar-echo">ECHO SYSTEM - UPLOAD ECHOㅤㅤ</p>
         </div>
         <div className="esquerda-filho-echo">
           <div className="content-div-esquerda">
