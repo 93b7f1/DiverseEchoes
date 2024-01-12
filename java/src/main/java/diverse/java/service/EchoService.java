@@ -1,6 +1,7 @@
 package diverse.java.service;
 
 import diverse.java.domain.Echo;
+import diverse.java.domain.User;
 import diverse.java.repositories.EchoRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ public class EchoService {
         return echoRepository.save(echo);
     }
 
+    public List<Echo> echoesUser(Integer idUser){
+        return echoRepository.findByEchoes(idUser);
+
+    }
     public Echo editarEchoSystem(Echo echo){
         Optional<Echo> echoExistente = echoRepository.findById(echo.getIdEcho());
 

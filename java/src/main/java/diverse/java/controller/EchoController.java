@@ -33,7 +33,10 @@ public class EchoController {
     public ResponseEntity<List<Echo>> listEchoes(){
         return ResponseEntity.status(200).body(echoService.echoList());
     }
-
+    @GetMapping("echoes-user/{idUser}")
+    public ResponseEntity<List<Echo>> listEchoesUser(@PathVariable Integer idUser){
+        return ResponseEntity.status(200).body(echoService.echoesUser(idUser));
+    }
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Echo> criarEcho(
             @RequestParam("imagem" ) MultipartFile imagem,

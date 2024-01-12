@@ -68,7 +68,7 @@ function PerfilArtista(props) {
     // useEffect(() => {
     //     const fetchLyrics = async () => {
     //         try {
-    //             const response = await api.get(`/usuarios/perfil/${dados.id}`);
+    //             const response = await api.get(`/echoes/echoes-user/${dados.id}`);
 
     //             setImagemExist(response.data.blob)
     //             setInfos(response.data)
@@ -81,20 +81,20 @@ function PerfilArtista(props) {
     // }, [dados.id]);
 
 
-    // useEffect(() => {
-    //     const fetchLyrics = async () => {
-    //         try {
-    //             const response = await api.get(`/echo/artista/${dados.id}`);
-    //             setPerfil(response.data)
+    useEffect(() => {
+        const fetchLyrics = async () => {
+            try {
+                const response = await api2.get(`/echoes/echoes-user/${dados.id}`);
+                setPerfil(response.data)
 
-    //         } catch (err) {
-    //             console.error(err);
+            } catch (err) {
+                console.error(err);
 
-    //         }
-    //     };
+            }
+        };
 
-    //     fetchLyrics();
-    // }, [dados.id]);
+        fetchLyrics();
+    }, [dados.id]);
 
 
 
@@ -102,6 +102,9 @@ function PerfilArtista(props) {
     
     const api = axios.create({
         baseURL: 'http://localhost:8080/users'
+    });
+    const api2 = axios.create({
+        baseURL: 'http://localhost:8080/'
     });
 
     const submit = async (e) => {
@@ -227,7 +230,8 @@ function PerfilArtista(props) {
                                             <MusicBoxPerfil
                                                 key={echo.id}
                                                 id={echo.idEcho}
-                                                blob={echo.blob}
+                                                echoImage={echo.echoImage}
+                                                nameEcho={echo.echoName}
                                             />
                                         ))
                                     ) : (

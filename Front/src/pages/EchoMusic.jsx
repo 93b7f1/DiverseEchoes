@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Dropdown from "../components/Dropdown";
-function Echo(props) {
+function EchoMusic(props) {
   const navigate = useNavigate();
   const validar = () => {
     const { echoname } = inputFields[0];
@@ -64,7 +64,7 @@ function Echo(props) {
   // const formRef = useRef();
 
   const api = axios.create({
-    baseURL: 'http://localhost:8080/'
+    baseURL: 'http://localhost:8000/api/v2/'
   });
 
   const submit = async (e) => {
@@ -75,27 +75,25 @@ function Echo(props) {
 
       const imageFile = document.getElementById("imagem").files[0];
 
-      const novoEcho = {
-        user:{
-            idUser: dados.id
-        },
-        echoName: inputFields[0].echoname,
-        urlOptional: "padrao url teste",        
-        genre: inputFields[0].typea,
-        pixivEcho: inputFields[0].pixiv,
-        views: 0,
+      const echo = {
+        echolink: inputFields[0].echoname,
+        url: "...",
+        genero: inputFields[0].typea,
+        tipo: inputFields[0].type,
+        pixiv: inputFields[0].pixiv,
+        visualizacao: 0,
+        user: dados.id
         
       };
 
-      const formData = new FormData();
-      formData.append("novoEcho", JSON.stringify(novoEcho));      
-      formData.append("imagem", imageFile);
-
-      console.log(formData)
+      // const formData = new FormData();
+      // formData.append("profile_picture2", imageFile);
+      
+      // console.log(formData)
       try {
-        const response = await api.post("echoes", formData, {
+        const response = await api.post("echo/", echo, {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         });
 
@@ -133,7 +131,7 @@ function Echo(props) {
 
       <div className="direita-echo">
         <div className="navbar-echo">
-          <p className="text-navbar-echo">ECHO SYSTEM - UPLOAD ARTWORKㅤㅤ</p>
+          <p className="text-navbar-echo">ECHO SYSTEM - UPLOAD MUSICㅤㅤ</p>
         </div>
         <div className="esquerda-filho-echo">
           <div className="content-div-esquerda">
@@ -206,7 +204,7 @@ function Echo(props) {
   );
 }
 
-export default Echo;
+export default EchoMusic;
 
 
 

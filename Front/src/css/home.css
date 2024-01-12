@@ -1,3 +1,17 @@
+*::-webkit-scrollbar {
+	width: 5px;
+	height: 2px;
+  }
+  
+  *::-webkit-scrollbar-track {
+	background: #ffffff;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 3px solid #111111;
+  }
 .pai-home{
     height: 100vh;
     background-color:#E6ECF0 ;

@@ -56,9 +56,19 @@ function SidebarContent() {
                 <span className="fa fa-user mr-3"></span> Customize profile
               </a>
             </li>
+            
             <li>
-              <a className="sidebar-a" href="/echo">
-                <span className="fa fa-sticky-note mr-3"></span> Post Echo
+              <a className="sidebar-c" href="/echo">
+                <span className="fa fa-sticky-note mr-3" ></span> Post Echo
+              </a>
+              <a className="sidebar-b" href="/echo">
+                <span className="fa fa-sticky-note mr-3"></span> Post Artwork
+              </a>
+              <a className="sidebar-b" href="/echo-music">
+                <span className="fa fa-sticky-note mr-3"></span> Post Music
+              </a>
+              <a className="sidebar-b" href="/echo-video">
+                <span className="fa fa-sticky-note mr-3"></span> Post Video
               </a>
             </li>
             <li>

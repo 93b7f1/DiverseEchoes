@@ -80,6 +80,13 @@
   .sidebar-a{
     font-size: 17px;
   }
+  .sidebar-c{
+    font-size: 17px;
+    pointer-events:none
+  }
+  .sidebar-b{
+    font-size: 14px;
+  }
   dt {
     font-weight: 700; }
   
@@ -118,7 +125,9 @@
       color: #0056b3;
       text-decoration: underline; }
   
-  
+
+      
+      
   pre,
   code,
   kbd,
@@ -167,8 +176,18 @@
       -webkit-box-shadow: none;
       box-shadow: none; }
   
-
-  
+      .sidebar-b {
+        -webkit-transition: .3s all ease;
+        -o-transition: .3s all ease;
+        transition: .3s all ease;
+        color: #30e3ca; }
+        .sidebar-b:hover, .sidebar-b:focus {
+          text-decoration: none !important;
+          outline: none !important;
+          -webkit-box-shadow: none;
+          box-shadow: none; }
+        
+          
   .img {
     background-size: cover;
     background-repeat: no-repeat;
@@ -235,6 +254,21 @@
         background: transparent;
         color: #fff; }
  
+        #sidebar ul li .sidebar-b{
+          display: block;
+          color: rgba(255, 255, 255, 0.6);
+          border-bottom: 0px solid rgba(255, 255, 255, 0.1); }
+
+          #sidebar ul li.active > .sidebar-b{
+            background: transparent;
+            color: #fff; }
+        
+            .sidebar-c {
+              padding: 10px 0;
+              display: block;
+              color: rgba(255, 255, 255, 0.6);
+              border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+           
     #sidebar .custom-menu {
       display: inline-block;
       position: absolute;
@@ -279,7 +313,10 @@
   
    .sidebar-a{
     margin-top: 35px;}
-  
+    .sidebar-b{
+      margin-top: 20px;}
+      .sidebar-c{
+        margin-top: 35px;}
 .perfil-h1{
 margin-right: 25px;
 
