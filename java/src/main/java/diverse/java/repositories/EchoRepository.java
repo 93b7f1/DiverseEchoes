@@ -13,6 +13,13 @@ public interface EchoRepository extends JpaRepository<Echo, Integer> {
 
     List<Echo> findAllByOrderByIdEchoDesc();
 
+    List<Echo> findTop5ByOrderByIdEchoDesc();
+
+    List<Echo> findTop5ByTypeOrderByIdEchoDesc(String type);
+
     @Query("select e FROM Echo e WHERE e.user.idUser = :idUser")
     List<Echo> findByEchoes(@Param("idUser") Integer idUser);
+
+    //    @Query("select e FROM Echo e WHERE e.user.idUser = :idUser and e.type = :image")
+    //    List<Echo> findByEchoes(@Param("idUser") Integer idUser, @Param("image") String image);
 }

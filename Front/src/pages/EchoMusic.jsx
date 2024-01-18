@@ -37,6 +37,7 @@ function EchoMusic(props) {
     setInputFields(data);
   };
 
+    const [text, setText] = useState('');
   useEffect(() => {
     document.body.classList.add('echo-perfil3');
   }, []);
@@ -148,50 +149,68 @@ function EchoMusic(props) {
             {/* <Dropdown options={options} onSelect={handleOptionSelect} /> */}
 
 
-            <div className="content-div-esquerda-filho2">
-              <div className="titulo1-echo-esquerda"> ECHO Links </div>
-              <div className="inputs-echo-esquerda">
-                {inputFields.map((input, index) => {
-                  return (
-                    <div className="esquerdo-inputs-esquerdo" key={index}>
-                      <p className="e-direita-echo">EchoName
-                        <input type="text" className="input-echo-e" name="echoname" onChange={event => handleFormChange(index, event)} />
-                      </p>
-                      <p className="e-direita-echo">Art Type
-                        <input type="text" className="input-echo-e" name="typea" onChange={event => handleFormChange(index, event)} />
-                      </p>
-                      <p className="e-direita-echo">Type
-                        <input type="text" className="input-echo-e" name="type" onChange={event => handleFormChange(index, event)} />
-                      </p>
-                      <div className="faixa-direita-echo"></div>
-                      <p className="e-direita-echo2">......
-                        <input type="text" className="input-echo-e" name="otherPlataform1"  />
-                      </p>
-                    </div>
-                  );
-                })}
-                {inputFields.map((input, index) => {
-                  return (
-                    <div className="esquerdo-inputs-direito" key={index}>
-                      <p className="e-direita-echo">Pixiv
-                        <input type="text" className="input-echo-e" name="pixiv" onChange={event => handleFormChange(index, event)} />
-                      </p>
-                      <p className="e-direita-echo">......
-                        <input type="text" className="input-echo-e" name="deezer"  />
-                      </p>
-                      <p className="e-direita-echo">......
-                        <input type="text" className="input-echo-e" name="appleMusic"  />
-                      </p>
-                      <div className="faixa-direita-echo"></div>
-                      <div className="titulo3-echo-esquerda" >  <IconWithInfo info="Art Types means the file extension, and Type the art style or genre" /></div>
-                      <div className="save-cont">
-                        <button className="btn-direita22" onClick={submit}>Upload Echo</button>
+            <div className="content-div-esquerda-filho3">
+              <div className="direita-filho-echo">
+                
+                        <div className="content-div-direita">
+                            <div className="content-div-direita-filho">
+                            <div className="titulo1-echo"> User Data</div>
 
-                      </div>
+                                {inputFields.map((input, index) => {
+                                    return (
+                                        <div className="inputs-echo-direita" key={index}>
+                                            <p className="p-direita-echo">Username
+                                                <input type="text" className="input-echo-d"placeholder={`${dados.username}`}  name="username" onChange={event => handleFormChange(index, event)} />
+                                                {/* <input type="text" className="input-echo-d" placeholder={`${dados.username}`} name="username" onChange={event => handleFormChange(index, event)} /> */}
+                                            </p>
+                                            <div className="particao-perfil">
+                                                <div className="particao-e">
+
+                                                    <p className="p-direita-echo">Pixivㅤㅤㅤ
+                                                        <input type="text" className="input-echo-n" name="twitter"  onChange={event => handleFormChange(index, event)} />
+                                                    </p>
+                                                    <p className="p-direita-echo">Twitterㅤㅤ
+                                                        <input type="text" className="input-echo-n" name="instagram" onChange={event => handleFormChange(index, event)} />
+                                                    </p>
+                                                </div>
+
+                                                <div className="particao-d  ">
+                                                    <p className="p-direita-echo">Spotifyㅤㅤ
+                                                        <input type="text" className="input-echo-n" name="spotify" onChange={event => handleFormChange(index, event)} />
+                                                    </p>
+                                                    <p className="p-direita-echo">Soundcloudㅤ
+                                                        <input type="text" className="input-echo-n" name="soundCloud" onChange={event => handleFormChange(index, event)} />
+                                                    </p>
+                                                </div>
+
+                                            </div>
+
+
+                                            <p className="p-direita-echo">Youtube Channel
+                                                <input type="text" className="input-echo-d" name="genero" onChange={event => handleFormChange(index, event)} />
+                                            </p>
+
+                                        </div>
+                                    );
+                                })}
+                                <div className="faixa-direita-echo"></div>
+                            </div>
+                            <div className="content-div-direita-filho2">
+                                <div className="titulo1-echo"> Biography </div>
+                                <div className="align-direita2">
+                                    <textarea
+                                        id="lyrics"
+                                        name="lyrics"
+                                        rows="6"
+                                        cols="40"
+                                        value={text}
+                                        onChange={handleChange}
+                                    ></textarea>
+                                    <button className="btn-direita2" onClick={submit}>Save changes</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  );
-                })}
-              </div>
             </div>
 
           </div>

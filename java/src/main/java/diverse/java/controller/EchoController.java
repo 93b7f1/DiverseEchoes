@@ -28,7 +28,10 @@ public class EchoController {
         this.echoService = echoService;
 
     }
-
+    @GetMapping("last5-images")
+    public ResponseEntity <List<Echo>> listImages(){
+        return echoService.echoesImages();
+    }
     @GetMapping
     public ResponseEntity<List<Echo>> listEchoes(){
         return ResponseEntity.status(200).body(echoService.echoList());
@@ -36,6 +39,10 @@ public class EchoController {
     @GetMapping("echoes-user/{idUser}")
     public ResponseEntity<List<Echo>> listEchoesUser(@PathVariable Integer idUser){
         return ResponseEntity.status(200).body(echoService.echoesUser(idUser));
+    }
+    @GetMapping("last5")
+    public ResponseEntity<List<Echo>> listar5(){
+        return ResponseEntity.status(200).body(echoService.listar5());
     }
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Echo> criarEcho(

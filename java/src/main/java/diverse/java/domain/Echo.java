@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Entity
 public class Echo {
+
     @Id
     @Column(name = "idEcho")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

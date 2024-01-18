@@ -84,6 +84,7 @@ function Echo(props) {
         genre: inputFields[0].typea,
         pixivEcho: inputFields[0].pixiv,
         views: 0,
+        type: "image"
         
       };
 

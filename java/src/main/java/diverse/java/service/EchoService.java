@@ -3,6 +3,7 @@ package diverse.java.service;
 import diverse.java.domain.Echo;
 import diverse.java.domain.User;
 import diverse.java.repositories.EchoRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,16 @@ public class EchoService {
         return echoRepository.findByEchoes(idUser);
 
     }
+    public ResponseEntity<List<Echo>>  echoesImages(){
+        List<Echo> images = echoRepository.findTop5ByTypeOrderByIdEchoDesc("image");
+        if(images.isEmpty()){
+            return ResponseEntity.status(204).build();
+
+        }
+
+        return ResponseEntity.ok(images);
+
+    }
     public Echo editarEchoSystem(Echo echo){
         Optional<Echo> echoExistente = echoRepository.findById(echo.getIdEcho());
 
@@ -53,5 +64,8 @@ public class EchoService {
     public Optional<Echo> buscarId(Integer id){
         Optional<Echo> busca =  echoRepository.findById(id);
         return busca;
+    }
+    public List<Echo> listar5(){
+        return echoRepository.findTop5ByOrderByIdEchoDesc();
     }
 }

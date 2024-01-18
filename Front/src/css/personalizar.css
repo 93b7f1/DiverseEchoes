@@ -159,8 +159,12 @@ body.dark-mode{
     background-color: rgb(255, 255, 255);
     border-radius: 10px 10px 10px 10px;
 }
-
-.align-direita2 {
+.content-div-esquerda-filho3 {
+    width: 500px;
+    height: 570px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px 10px 10px 10px;
+}.align-direita2 {
     display: flex;
     flex-direction: column;
     justify-content: center;

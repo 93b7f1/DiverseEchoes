@@ -10,7 +10,7 @@ function Musics() {
         <p className="art-name">Musics</p>
       </div>
       <div className="component-content-home">
-        <div  className="teste-comp2"></div>
+        <div className="teste-comp2"></div>
         <div className="teste-comp2"></div>
         <div className="teste-comp2"></div>
         <div className="teste-comp2"></div>
