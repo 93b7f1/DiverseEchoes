@@ -5,7 +5,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import diverse.java.domain.Echo;
-import diverse.java.service.EchoService;
+import diverse.java.service.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +23,9 @@ import java.util.Optional;
 public class EchoController {
 
    private EchoService echoService;
+   public UploadImage uploadImage = new UploadImage();
+   public UploadAudio uploadAudio = new UploadAudio();
+   public UploadVideo uploadVideo = new UploadVideo();
 
     public EchoController(EchoService echoService) {
         this.echoService = echoService;
@@ -44,9 +47,9 @@ public class EchoController {
     public ResponseEntity<List<Echo>> listar5(){
         return ResponseEntity.status(200).body(echoService.listar5());
     }
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Echo> criarEcho(
-            @RequestParam("imagem" ) MultipartFile imagem,
+    @PostMapping(value="upload-image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Echo> criarEchoImage(
+            @RequestParam("auxPart" ) MultipartFile imagem,
             @RequestPart("novoEcho") String novoEchoJson
     ) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -61,9 +64,15 @@ public class EchoController {
 
                     String blobName = generateUniqueBlobName(folderPath, imagem.getOriginalFilename());
 
-                    uploadImage(imagemBytes, folderPath, blobName);
+                    try{
+                        uploadImage.upload(imagemBytes, folderPath, blobName);
 
-                    novoEcho.setEchoImage(blobName);
+                    }catch (InvalidFileExtensionException e){
+                        System.out.println(e.getMessage());
+                        return ResponseEntity.status(400).build();
+
+                    }
+                    novoEcho.setAuxPart(blobName);
 
                     return ResponseEntity.status(201).body(echoService.createEcho(novoEcho));
                 } catch (IOException e) {
@@ -78,7 +87,59 @@ public class EchoController {
 
         return ResponseEntity.status(400).build();
     }
+    @PostMapping(value="upload-audio", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Echo> criarEchoAudio(
+            @RequestParam("imagem" ) MultipartFile imagem,
+            @RequestPart("auxPart" ) MultipartFile auxPart,
+            @RequestPart("novoEcho") String novoEchoJson
 
+    ) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Echo novoEcho = objectMapper.readValue(novoEchoJson, Echo.class);
+
+            if (!imagem.isEmpty() && !auxPart.isEmpty()) {
+                try {
+                    byte[] imagemBytes = imagem.getBytes();
+                    byte[] auxBytes = auxPart.getBytes();
+
+                    String folderPath = "C:\\Users\\call1\\Desktop\\DiverseEchoes\\Archives";
+
+                    String blobName = generateUniqueBlobName(folderPath, imagem.getOriginalFilename());
+                    String blobName2 = generateUniqueBlobName(folderPath, auxPart.getOriginalFilename());
+
+                    try{
+                        uploadImage.upload(imagemBytes, folderPath, blobName);
+
+                    }catch (InvalidFileExtensionException e){
+                        System.out.println(e.getMessage());
+                        return ResponseEntity.status(400).build();
+
+                    }
+
+
+                    try {
+                        uploadAudio.upload(auxBytes, folderPath, blobName2);
+                    } catch (InvalidFileExtensionException e) {
+                        System.out.println(e.getMessage());
+                        return ResponseEntity.status(400).build();
+                    }
+                    novoEcho.setEchoImage(blobName);
+                    novoEcho.setAuxPart(blobName2);
+
+                    return ResponseEntity.status(201).body(echoService.createEcho(novoEcho));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return ResponseEntity.status(400).build();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.status(400).build();
+    }
     @PatchMapping("/streams/{id}")
     public ResponseEntity<Echo> attStream(@PathVariable Integer id, @RequestBody Echo echoSystem) {
         Optional<Echo> echoSystemExistente = echoService.buscarId(id);
@@ -167,22 +228,22 @@ public class EchoController {
         return newBlobName;
     }
 
-    private void uploadImage(byte[] imageBytes, String folderPath, String fileName) {
-        try {
-            Path imagePath = Paths.get(folderPath, fileName);
-            File imageFile = imagePath.toFile();
-
-            try (FileOutputStream fos = new FileOutputStream(imageFile)) {
-                fos.write(imageBytes);
-            }
-
-
-            String localImagePath = imageFile.getAbsolutePath();
-            System.out.println("Arquivo Salvo: " + localImagePath);
-
-
-        } catch (IOException e) {
-            System.out.println("Erro ao armazenar o arquivo: " + e.getMessage());
-        }
-    }
+//    private void uploadImage(byte[] imageBytes, String folderPath, String fileName) {
+//        try {
+//            Path imagePath = Paths.get(folderPath, fileName);
+//            File imageFile = imagePath.toFile();
+//
+//            try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+//                fos.write(imageBytes);
+//            }
+//
+//
+//            String localImagePath = imageFile.getAbsolutePath();
+//            System.out.println("Arquivo Salvo: " + localImagePath);
+//
+//
+//        } catch (IOException e) {
+//            System.out.println("Erro ao armazenar o arquivo: " + e.getMessage());
+//        }
+//    }
 }

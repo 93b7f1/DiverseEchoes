@@ -59,12 +59,21 @@ public class Echo {
 
     @Column(name = "echoImage")
     private String echoImage;
-
+    @Column(name = "auxPart")
+    private String auxPart;
     @Column(name = "stream")
     private Integer stream;
 
     @Column(name = "redirect")
     private Integer redirect;
+
+    public String getAuxPart() {
+        return auxPart;
+    }
+
+    public void setAuxPart(String auxPart) {
+        this.auxPart = auxPart;
+    }
 
     public String getInfos() {
         return infos;
