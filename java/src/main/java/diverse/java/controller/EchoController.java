@@ -1,19 +1,17 @@
 package diverse.java.controller;
 
-import com.azure.storage.blob.BlobClient;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobContainerClientBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import diverse.java.domain.Echo;
 import diverse.java.service.*;
+import diverse.java.upload.UploadAudio;
+import diverse.java.upload.UploadImage;
+import diverse.java.upload.UploadVideo;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,6 +115,56 @@ public class EchoController {
 
                     try {
                         uploadAudio.upload(auxBytes, folderPath, blobName2);
+                    } catch (InvalidFileExtensionException e) {
+                        System.out.println(e.getMessage());
+                        return ResponseEntity.status(400).build();
+                    }
+                    novoEcho.setEchoImage(blobName);
+                    novoEcho.setAuxPart(blobName2);
+
+                    return ResponseEntity.status(201).body(echoService.createEcho(novoEcho));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return ResponseEntity.status(400).build();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.status(400).build();
+    }
+    @PostMapping(value="upload-video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Echo> criarEchoVideo(
+            @RequestParam("imagem" ) MultipartFile imagem,
+            @RequestPart("auxPart" ) MultipartFile auxPart,
+            @RequestPart("novoEcho") String novoEchoJson
+
+    ) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            Echo novoEcho = objectMapper.readValue(novoEchoJson, Echo.class);
+
+            if (!imagem.isEmpty() && !auxPart.isEmpty()) {
+                try {
+                    byte[] imagemBytes = imagem.getBytes();
+                    byte[] auxBytes = auxPart.getBytes();
+
+                    String folderPath = "C:\\Users\\call1\\Desktop\\DiverseEchoes\\Archives";
+
+                    String blobName = generateUniqueBlobName(folderPath, imagem.getOriginalFilename());
+                    String blobName2 = generateUniqueBlobName(folderPath, auxPart.getOriginalFilename());
+
+                    try{
+                        uploadImage.upload(imagemBytes, folderPath, blobName);
+                    }catch (InvalidFileExtensionException e){
+                        System.out.println(e.getMessage());
+                        return ResponseEntity.status(400).build();
+                    }
+
+                    try {
+                        uploadVideo.upload(auxBytes, folderPath, blobName2);
                     } catch (InvalidFileExtensionException e) {
                         System.out.println(e.getMessage());
                         return ResponseEntity.status(400).build();

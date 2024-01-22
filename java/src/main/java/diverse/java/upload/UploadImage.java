@@ -1,4 +1,7 @@
-package diverse.java.service;
+package diverse.java.upload;
+
+import diverse.java.service.InvalidFileExtensionException;
+import diverse.java.upload.IUpload;
 
 import java.io.File;
 import java.io.FileOutputStream;

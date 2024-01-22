@@ -1,4 +1,7 @@
-package diverse.java.service;
+package diverse.java.upload;
+
+import diverse.java.service.InvalidFileExtensionException;
+import diverse.java.upload.IUpload;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,13 +9,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class UploadVideo implements IUpload {
+public class UploadAudio implements IUpload {
     @Override
     public void upload(byte[] imageBytes, String folderPath, String fileName) throws InvalidFileExtensionException {
         String fileExtension = getFileExtension(fileName);
         if (!isValidExtension(fileExtension)) {
-            throw new InvalidFileExtensionException("Extensão de arquivo inválida. Apenas mp4 e avi são permitidos.");
+            throw new InvalidFileExtensionException("Extensão de arquivo inválida. Apenas mp3 é permitido.");
         }
+
         try {
             Path imagePath = Paths.get(folderPath, fileName);
             File imageFile = imagePath.toFile();
@@ -22,12 +26,13 @@ public class UploadVideo implements IUpload {
             }
 
             String localImagePath = imageFile.getAbsolutePath();
-            System.out.println("Video salvo: " + localImagePath);
+            System.out.println("Música salva: " + localImagePath);
 
         } catch (IOException e) {
-            System.out.println("Erro ao armazenar video: " + e.getMessage());
+            System.out.println("Erro ao armazenar música: " + e.getMessage());
         }
     }
+
     @Override
     public String getFileExtension(String fileName) {
         int lastDotIndex = fileName.lastIndexOf(".");
@@ -36,8 +41,9 @@ public class UploadVideo implements IUpload {
         }
         return fileName.substring(lastDotIndex + 1).toLowerCase();
     }
+
     @Override
     public boolean isValidExtension(String fileExtension) {
-        return fileExtension.equals("mp4")|| fileExtension.equals("avi");
+        return fileExtension.equals("mp3");
     }
 }
