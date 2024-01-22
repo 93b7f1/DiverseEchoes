@@ -110,13 +110,10 @@ public class EchoController {
 
                     try{
                         uploadImage.upload(imagemBytes, folderPath, blobName);
-
                     }catch (InvalidFileExtensionException e){
                         System.out.println(e.getMessage());
                         return ResponseEntity.status(400).build();
-
                     }
-
 
                     try {
                         uploadAudio.upload(auxBytes, folderPath, blobName2);
@@ -211,16 +208,23 @@ public class EchoController {
         String extension = "";
 
         int dotIndex = originalFilename.lastIndexOf(".");
+        System.out.println(dotIndex);
         if (dotIndex > 0) {
             extension = originalFilename.substring(dotIndex);
             blobName = originalFilename.substring(0, dotIndex);
+            System.out.println(blobName);
+            System.out.println(extension);
+
         }
 
         String newBlobName = blobName + extension;
         File file = new File(folderPath, newBlobName);
 
         while (file.exists()) {
+
             newBlobName = blobName + counter + extension;
+            System.out.println(newBlobName);
+
             file = new File(folderPath, newBlobName);
             counter++;
         }
