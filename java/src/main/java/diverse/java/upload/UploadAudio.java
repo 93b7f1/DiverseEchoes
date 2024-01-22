@@ -43,7 +43,7 @@ public class UploadAudio implements IUpload {
     }
 
     @Override
-    public boolean isValidExtension(String fileExtension) {
+    public boolean isValidExtension(String fileExtension)    {
         return fileExtension.equals("mp3");
     }
 }
